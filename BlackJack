@@ -1,0 +1,132 @@
+import time
+import random
+vb = 0   # valore banco
+e = 0    # valore estrazione
+vg = 0   # valore giocatore
+vgt = 0  # valore giocatore totale
+vbt = 0  # valore banco totale
+a = "-"*50 # pura grafica
+kg = True #keep going
+pl = False #il giocatore ha perso
+yn = input("Sei pronto a giocare? ")
+if yn == "no":
+    print("Torna quando sarai pronto")
+else:
+    print(a)
+    e = random.randint(1, 13)
+    print("Estraggo la prima carta del banco")
+    if e == 1:
+        vb = 11
+        print("Ho estratto un asso")
+    elif e >= 11:
+        vb = 10
+        if e == 11:
+            print("Ho estratto un fante")
+        if e == 12:
+            print("Ho estratto una donna")
+        if e == 13:
+            print("Ho estratto un re")
+    else:
+        vb = e
+        print("Ho estratto un", e)
+    vbt = vbt + vb
+    print("Il banco ha", vbt)
+    print(a)
+    print("Ecco le tue prime due carte")
+    for i in range(2):
+        e = random.randint(1, 13)
+        if e == 1:
+            vg = 11
+            print("Asso")
+        elif e >= 11:
+            vg = 10
+            if e == 11:
+                print("Fante")
+            if e == 12:
+                print("Donna")
+            if e == 13:
+                print("Re")
+        else:
+            vg = e
+            print("Hai ricevuto un", e)
+        vgt = vgt + vg
+        print("In mano hai", vgt)
+        time.sleep(2)
+    if vgt > 21:
+        quit()
+    print(a)
+    while kg:
+        yn = str.lower(input("Hit or Stay? (hit = ricevi un'altra carta, stay = ti fermi):  "))
+        print(a)
+        if yn == "stay":
+            break
+        if yn == "hit":
+            print("Tieni una carta:")
+            e = random.randint(1, 13)
+            if e == 1:
+                vg = 11
+                print("Asso")
+            elif e >= 11:
+                vg = 10
+                if e == 11:
+                    print("Fante")
+                if e == 12:
+                    print("Donna")
+                if e == 13:
+                    print("Re")
+            else:
+                vg = e
+                print("Hai ricevuto un", e)
+            vgt = vgt + vg
+            time.sleep(1)
+            print("In mano hai", vgt)
+            print(a)
+            if vgt > 21:
+                print("Hai superato 21! Ora tocca a me!")
+                pl = True
+                break
+            if vgt == 21:
+                yn = str.lower(input("Immagino tu voglia fermarti ora, vero? "))
+                if yn == "si":
+                    break
+                if yn == "no":
+                    print("Pazzo")
+
+            time.sleep(2)
+    while kg:
+        print("Scelgo di pescare")
+        e = random.randint(1, 13)
+        if e == 1:
+            vb = 11
+            print("Ho estratto un asso")
+        elif e >= 11:
+            vb = 10
+            if e == 11:
+                print("Ho estratto un fante")
+            if e == 12:
+                print("Ho estratto una donna")
+            if e == 13:
+                print("Ho estratto un re")
+        else:
+            vb = e
+            print("Ho estratto un", e)
+        vbt = vbt + vb
+        print("Il banco ha", vbt)
+        if vbt >= 17 and vbt <21:
+            print("Il banco si ferma")
+            break
+        if vbt > 21 and not pl:
+            break
+        if vbt == 21:
+            break
+        if vbt > 21 and pl:
+            break
+        time.sleep(2)
+    if vbt <= 21 and pl:
+        print("Ho vinto!!!")
+    if vbt == vgt < 21:
+        print("Pareggio! Abbiamo perso entrambi....")
+    if vbt > vgt and vbt < 21 and not pl:
+        print("Ho vinto!")
+    if vbt > 21 and not pl:
+        print("Complimenti! Hai vinto!")
